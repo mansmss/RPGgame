@@ -32,25 +32,28 @@ public class PlayerHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Die();
+            Debug.Log("Player Dead");
         }
+    }
+
+    public void Heal(float amount)
+    {
+        currentHealth += amount;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        UpdateUI();
     }
 
     void UpdateUI()
     {
-        float healthPercent =
+        healthBarFill.fillAmount =
             currentHealth / maxHealth;
 
-        healthBarFill.fillAmount = healthPercent;
-
         healthText.text =
-            Mathf.Round(currentHealth)
-            + " / "
-            + Mathf.Round(maxHealth);
-    }
-
-    void Die()
-    {
-        gameObject.SetActive(false);
+            currentHealth + " / " + maxHealth;
     }
 }
